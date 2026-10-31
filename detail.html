@@ -1,51 +1,49 @@
-// 공공데이터포털 인증키가 적용된 코드입니다
-const SERVICE_KEY = "ae396a7866616358861e3caa7ff6eb1c89e0b17b464df99891bf232ea530dc47";
-const API_URL = `https://apis.data.go.kr/B551011/KorPetTourService2/areaBasedList2?serviceKey=${SERVICE_KEY}&MobileOS=ETC&MobileApp=AppTest&_type=json&numOfRows=20&pageNo=1`;
-
-async function fetchPetPlaces() {
-  const cardGrid = document.getElementById("cardGrid");
-  if (!cardGrid) return;
-
-  try {
-    const response = await fetch(API_URL);
-    const data = await response.json();
-    
-    // API 응답 구조에서 데이터 아이템 추출
-    const items = data.response?.body?.items?.item;
-    
-    if (!items || items.length === 0) {
-      cardGrid.innerHTML = "<p style='grid-column: 1/-1; text-align: center; color: #888;'>조회된 데이터가 없습니다.</p>";
-      return;
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>펫투게더 - 상세 정보 및 지도</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .detail-container {
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      max-width: 800px;
+      margin: 0 auto;
     }
+    .detail-container h2 {
+      margin-bottom: 15px;
+      color: #111;
+    }
+    .detail-container p {
+      margin-bottom: 10px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
 
-    cardGrid.innerHTML = ""; // 기존 내용 초기화
+  <header>
+    <h1>🐶 펫<span>투게더</span></h1>
+    <nav>
+      <a href="index.html" style="text-decoration: none; color: #666; margin-right: 15px;">홈</a>
+      <a href="detail.html" style="text-decoration: none; color: #333; font-weight: bold;">상세/지도</a>
+    </nav>
+  </header>
 
-    items.forEach(place => {
-      const card = document.createElement("div");
-      card.className = "card";
-      
-      card.innerHTML = `
-        <div class="card-body">
-          <span class="badge">반려동물 동반</span>
-          <h3>${place.title || '상호명 없음'}</h3>
-          <p>📍 ${place.addr1 || '주소 정보 없음'}</p>
-          <p>📞 ${place.tel || '전화번호 없음'}</p>
-        </div>
-      `;
+  <div class="container">
+    <div class="detail-container">
+      <h2>📍 매장 상세 정보 및 안내</h2>
+      <p>선택하신 반려동물 동반 가능 매장의 상세 위치와 이용 수칙을 확인하는 공간입니다.</p>
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #eee;">
+      <div id="detailContent">
+        <p style="color: #888;">메인 페이지에서 매장을 선택하거나, 준비 중인 지도 기능이 곧 활성화됩니다!</p>
+      </div>
+    </div>
+  </div>
 
-      // 카드를 누르면 상세 페이지로 이동하도록 연결
-      card.addEventListener("click", () => {
-        location.href = `detail.html?title=${encodeURIComponent(place.title)}&addr=${encodeURIComponent(place.addr1)}&tel=${encodeURIComponent(place.tel)}`;
-      });
-
-      cardGrid.appendChild(card);
-    });
-
-  } catch (error) {
-    console.error("데이터를 불러오는 중 에러가 발생했습니다:", error);
-    cardGrid.innerHTML = "<p style='grid-column: 1/-1; text-align: center; color: #ff6b6b;'>데이터를 불러오지 못했습니다.</p>";
-  }
-}
-
-// 페이지가 로드되면 데이터를 불러옵니다
-window.addEventListener("DOMContentLoaded", fetchPetPlaces);
+</body>
+</html>
