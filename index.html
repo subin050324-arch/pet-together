@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>펫투게더 - 반려동물 동반 지도</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>🐶 펫<span>투게더</span></h1>
+    <nav>
+      <a href="index.html" style="text-decoration: none; color: #333; font-weight: bold; margin-right: 15px;">홈</a>
+      <a href="detail.html" style="text-decoration: none; color: #666;">상세/지도</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <!-- 검색 섹션 -->
+    <section class="search-section">
+      <input type="text" id="searchInput" placeholder="지역이나 매장 이름을 검색해보세요 (예: 서울, 카페 등)">
+    </section>
+
+    <!-- 매장 카드들이 동적으로 들어갈 자리 -->
+    <section class="card-grid" id="cardGrid">
+      <!-- 자바스크립트로 카드가 여기에 렌더링됩니다 -->
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
